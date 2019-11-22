@@ -33,7 +33,10 @@ const subway = {
     return Math.abs(line.indexOf(from) - line.indexOf(to));
   },
 
-  loopStops: function(iterator) {
+  loopStops: function(line, from, to, reverse = false) {
+    let arr = line.slice(from, to);
+    let iterator = arr.values();
+    if (reverse) arr = arr.reverse();
     for (let lines of iterator) {
       console.log("Rider arrives at " + lines);
     }
@@ -46,16 +49,9 @@ const subway = {
 
     if (!multiZones) {
       if (fromIndex < toIndex) {
-        let arr = line1.slice(fromIndex, toIndex + 1);
-        let iterator = arr.values();
-        for (let lines of iterator) {
-          console.log(lines);
-        }
+        this.loopStops(line1, fromIndex, toIndex + 1);
       } else {
-        let arr = line1.slice(toIndex, fromIndex + 1);
-        arr = arr.reverse();
-        let iterator = arr.values();
-        this.loopStops(iterator);
+        this.loopStops(line1, toIndex, fromIndex + 1, true);
       }
     } else {
       let intersectedStop = "Park Street";
@@ -63,27 +59,17 @@ const subway = {
       let line2IntersectedStop = line2.indexOf(intersectedStop);
 
       if (fromIndex < line1IntersectedStop) {
-        let arr = line1.slice(fromIndex, line1IntersectedStop + 1);
-        let iterator = arr.values();
-        this.loopStops(iterator);
+        this.loopStops(line1, fromIndex + 1, line1IntersectedStop + 1);
       } else {
-        let arr = line1.slice(line1IntersectedStop, fromIndex + 1);
-        arr = arr.reverse();
-        let iterator = arr.values();
-        this.loopStops(iterator);
+        this.loopStops(line1, line1IntersectedStop, fromIndex, true);
       }
 
       console.log("Rider transfers lines at Park Street.");
 
       if (line2IntersectedStop < toIndex) {
-        let arr = line2.slice(line2IntersectedStop + 1, toIndex + 1);
-        let iterator = arr.values();
-        this.loopStops(iterator);
+        this.loopStops(line2, line2IntersectedStop + 1, toIndex + 1);
       } else {
-        let arr = line2.slice(toIndex, line2IntersectedStop);
-        arr = arr.reverse();
-        let iterator = arr.values();
-        this.loopStops(iterator);
+        this.loopStops(line2, toIndex, line2IntersectedStop, true);
       }
     }
     console.log("Rider exits the train at " + to + ".");
@@ -130,4 +116,4 @@ const subway = {
     return numStops;
   }
 };
-subway.stopsBetweenStations("Red", "South Station", "Green", "Copley");
+subway.stopsBetweenStations("Red", "Alewife", "Green", "Government Center");
