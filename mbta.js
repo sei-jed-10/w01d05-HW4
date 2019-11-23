@@ -33,63 +33,66 @@ const subway = {
     return Math.abs(line.indexOf(from) - line.indexOf(to));
   },
 
-  loopStops: function(line, from, to, reverse = false) {
-    let arr = line.slice(from, to);
+  loopThroughStops: function(line, from, to, reverse = false) {
+    let arr = this[line.toLowerCase()].slice(from, to);
     let iterator = arr.values();
     if (reverse) arr = arr.reverse();
     for (let lines of iterator) {
-      console.log("Rider arrives at " + lines);
+      console.log(`Rider arrives at ${line} Line and ${lines}`);
     }
   },
 
   printLines: function(line1, from, line2, to, multiZones) {
-    let fromIndex = line1.indexOf(from);
-    let toIndex = line2.indexOf(to);
-    console.log("Rider boards the train at " + from + ".");
+    let fromIndex = this[line1.toLowerCase()].indexOf(from);
+    let toIndex = this[line2.toLowerCase()].indexOf(to);
+    console.log(`Rider boards the train at ${line1} Line and ${from}.`);
 
     if (!multiZones) {
       if (fromIndex < toIndex) {
-        this.loopStops(line1, fromIndex, toIndex + 1);
+        this.loopThroughStops(line1, fromIndex, toIndex + 1);
       } else {
-        this.loopStops(line1, toIndex, fromIndex + 1, true);
+        this.loopThroughStops(line1, toIndex, fromIndex + 1, true);
       }
     } else {
       let intersectedStop = "Park Street";
-      let line1IntersectedStop = line1.indexOf(intersectedStop);
-      let line2IntersectedStop = line2.indexOf(intersectedStop);
+      let line1IntersectedStop = this[line1.toLowerCase()].indexOf(
+        intersectedStop
+      );
+      let line2IntersectedStop = this[line2.toLowerCase()].indexOf(
+        intersectedStop
+      );
 
       if (fromIndex < line1IntersectedStop) {
-        this.loopStops(line1, fromIndex + 1, line1IntersectedStop + 1);
+        this.loopThroughStops(line1, fromIndex + 1, line1IntersectedStop + 1);
       } else {
-        this.loopStops(line1, line1IntersectedStop, fromIndex, true);
+        this.loopThroughStops(line1, line1IntersectedStop, fromIndex, true);
       }
 
-      console.log("Rider transfers lines at Park Street.");
+      console.log(
+        `Rider transfers from ${line1} Line to ${line2} Line at Park Street.`
+      );
 
       if (line2IntersectedStop < toIndex) {
-        this.loopStops(line2, line2IntersectedStop + 1, toIndex + 1);
+        this.loopThroughStops(line2, line2IntersectedStop + 1, toIndex + 1);
       } else {
-        this.loopStops(line2, toIndex, line2IntersectedStop, true);
+        this.loopThroughStops(line2, toIndex, line2IntersectedStop, true);
       }
     }
-    console.log("Rider exits the train at " + to + ".");
+    console.log(`Rider exits the train at ${to} .`);
   },
 
   stopsBetweenStations: function(line1, from, line2, to) {
     let numStops = 0;
     if (
       this[line1.toLowerCase()] != undefined &&
-      this[line2.toLowerCase()] != undefined
+      this[line2.toLowerCase()] != undefined &&
+      this[line1.toLowerCase()].includes(from) &&
+      this[line2.toLowerCase()].includes(to)
     ) {
       if (line1 == line2) {
         numStops = this.stopCounter(from, to, this[line1.toLowerCase()]);
-        this.printLines(
-          this[line1.toLowerCase()],
-          from,
-          this[line2.toLowerCase()],
-          to,
-          false
-        );
+        numStops += " Stops";
+        this.printLines(line1, from, line2, to, false);
       } else {
         let intersectedStop = "Park Street";
         numStops = this.stopCounter(
@@ -102,18 +105,13 @@ const subway = {
           to,
           this[line2.toLowerCase()]
         );
-        this.printLines(
-          this[line1.toLowerCase()],
-          from,
-          this[line2.toLowerCase()],
-          to,
-          true
-        );
+        numStops += " Stops";
+        this.printLines(line1, from, line2, to, true);
       }
     } else {
       numStops = "wrong lines input!";
     }
-    return numStops;
+    console.log(`${numStops}`);
   }
 };
-subway.stopsBetweenStations("Red", "Alewife", "Green", "Government Center");
+subway.stopsBetweenStations("Red", "South Station", "Green", "Copley");
