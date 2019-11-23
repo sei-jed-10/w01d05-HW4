@@ -21,6 +21,10 @@
   line and stop that a rider is getting off at and **returns the total number of
   stops for the trip**.
 
+  // name 
+  func(line) 
+  // number of stops 
+
 There are 3 subway lines:
 
 - Red
@@ -39,7 +43,7 @@ There are 3 subway lines:
   - Arlington
   - Copley
   - Hynes
-  - Kenmore
+  - Kenmore //
 - Orange 
   - North Station
   - Haymarket
@@ -65,15 +69,12 @@ stopsBetweenStations('Red', 'South Station', 'Green', 'Kenmore') // 6 stops
 
 ## Hints
 
-- Consider diagramming the lines by sketching out the subway lines and their
-  stops and intersection.
+- Consider diagramming the lines by sketching out the subway lines and their stops and intersection.
 - Solve an easier problem first like only traveling on the Red line.
-- Assume good input.  Your function does not need to check the validity of the line or
-  stop.
+- Assume good input.  Your function does not need to check the validity of the line or stop.
 - Subway lines are keys in a dictionary (object literal), while the values are
   a list (array) of all the stops on each line.
-- The key to the practice is to find the **intersection** of the lines at
-  *Park Street*.
+- The key to the practice is to find the **intersection** of the lines at *Park Street*.
 
 
 ## Bonus
