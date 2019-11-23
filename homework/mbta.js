@@ -13,24 +13,25 @@ const subwayLines = {
       if(startStation === endStation){
         stops = 0;
         console.log(`Number of Stops are: ${stops} Stops`);
-
       }else{
         const stopsStart = (subwayLines[startLine.toLowerCase()]).indexOf(startStation);
         const stopsEnd = (subwayLines[startLine.toLowerCase()]).indexOf(endStation);
-
         stops = Math.abs(stopsStart - stopsEnd);
+        
         console.log(`Number of Stops are: ${stops} Stops`);
+        console.log(`Rider boards the train a ${startLine} Line and ${startStation} Station, and Rider arrives at ${startLine} Line and ${endStation} Station`);
       }
     }else if(startLine != endLine){
       const stopsStart = (subwayLines[startLine.toLowerCase()]).indexOf(startStation);
       const stopsEnd = (subwayLines[endLine.toLowerCase()]).indexOf(endStation);
-      
       stops = Math.abs(stopsStart - stopsEnd);
+      
       console.log(`Number of Stops are: ${stops} Stops`);
+      console.log(`Rider transfers from ${startLine} Line to ${endLine} Line at Park Street.`);
     }
   },
 };
 subwayLines.stopsBetweenStations('Red', 'Alewife', 'Red', 'Alewife'); // 0 stops
 subwayLines.stopsBetweenStations('Red', 'Alewife', 'Red', 'South Station'); // 7 stops
-subwayLines.stopsBetweenStations('Red', 'South Station', 'Green', 'Kenmore') // 6 stops
-
+subwayLines.stopsBetweenStations('Red', 'South Station', 'Green', 'Kenmore'); // 6 stops
+subwayLines.stopsBetweenStations('Red', 'South Station', 'Green', 'Copley'); // 4 stops
