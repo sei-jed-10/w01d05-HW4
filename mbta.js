@@ -31,26 +31,28 @@ function stopsBetweenStations(StartLine, StartStation, EndLine, EndStation){
       var sharedPoint2 = 0;
       var totalSteps = 0;
       
-     for( i = 0 ; i < subways.length ;i++){
+      for( i = 0 ; i < subways.length ;i++){
+      
+        for(j=0;j< subways[i].stations.length; j++){
+        
         if (StartLine == subways[i].line){
-         indexofStartStation = subways[i].stations[i].indexOf(StartStation);
-         sLine = subways[i].line;
-         sharedPoint =  subways[i].stations[i].indexOf("Park Street");
-                                 }
-        if (EndLine == subways[i].line){
-          indexofEndStation = subways[i].stations[i].indexOf(EndStation);
-          sharedPoint2 =  subways[i].stations[i].indexOf("Park Street");
-          eLine = subways[i].line;
-                                 }                          
-       
+          indexofStartStation = subways[i].stations.indexOf(StartStation);
+          sLine = subways[i].line;
+          sharedPoint =  subways[i].stations.indexOf("Park Street");
+                                  }
+         if (EndLine == subways[i].line){
+           indexofEndStation = subways[i].stations.indexOf(EndStation);
+           sharedPoint2 =  subways[i].stations.indexOf("Park Street");
+           eLine = subways[i].line;
+                                  }                          
+                  }
+      }
+      if(sLine == eLine)
+         totalSteps =  indexofStartStation-indexofEndStation ;
+       else totalSteps = (indexofEndStation - sharedPoint2) + (sharedPoint-indexofStartStation);
+        
+     return totalSteps;
      }
-     if(sLine == eLine)
-        totalSteps =  indexofEndStation - indexofStartStation;
-      else totalSteps = (indexofEndStation - sharedPoint2) + (sharedPoint-indexofStartStation);
-       
-    return totalSteps;
-    }
-    
     
     console.log(stopsBetweenStations('Red', 'Alewife', 'Red', 'Alewife')) // 0 stops
     console.log(stopsBetweenStations('Red', 'Alewife', 'Red', 'South Station')) // 7 stops
