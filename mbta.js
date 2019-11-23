@@ -15,8 +15,8 @@ function stopsBetweenStations(StartLine, StartStation, EndLine, EndStation){
                     ];
 
 //    //bouns
-//   if(StartLine !== 'Red' && StartLine !== 'Green' && StartLine !== 'Orange' || EndLine !== 'Red' && EndLine !== 'Green' && EndLine !== 'Orange' )
-//   return "The line is wrong";
+  if(StartLine !== 'Red' && StartLine !== 'Green' && StartLine !== 'Orange' || EndLine !== 'Red' && EndLine !== 'Green' && EndLine !== 'Orange' )
+  return "The line is wrong";
 
 //   //only accepts the correct stops for each of their stops.
 //  if( (EndLine == 'Red' )&& (EndStation !== "Alewife") || (EndLine == 'Green' )&& (EndStation !== "Kenmore") || (EndLine == 'Orange' )&& (EndStation !== "Forest Hills") )
@@ -24,9 +24,7 @@ function stopsBetweenStations(StartLine, StartStation, EndLine, EndStation){
 // //
     
       var indexofStartStation = 0;
-      var sLine = " ";
       var indexofEndStation = 0;
-      var eLine = " ";
       var sharedPoint = 0;
       var sharedPoint2 = 0;
       var totalSteps = 0;
@@ -37,20 +35,22 @@ function stopsBetweenStations(StartLine, StartStation, EndLine, EndStation){
         
         if (StartLine == subways[i].line){
           indexofStartStation = subways[i].stations.indexOf(StartStation);
-          sLine = subways[i].line;
           sharedPoint =  subways[i].stations.indexOf("Park Street");
                                   }
          if (EndLine == subways[i].line){
            indexofEndStation = subways[i].stations.indexOf(EndStation);
            sharedPoint2 =  subways[i].stations.indexOf("Park Street");
-           eLine = subways[i].line;
+           
                                   }                          
                   }
       }
-      if(sLine == eLine)
+      if(StartLine == EndLine)
          totalSteps =  indexofStartStation-indexofEndStation ;
        else totalSteps = (indexofEndStation - sharedPoint2) + (sharedPoint-indexofStartStation);
-        
+//    //bouns       
+	  console.log("Rider Transfers from " + StartLine + " line from " + StartStation);
+	  console.log("Rider Arrives to " + EndLine + " line At " + EndStation);	
+                                  
      return totalSteps;
      }
     
