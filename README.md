@@ -98,3 +98,67 @@ stopsBetweenStations('Red', 'South Station', 'Green', 'Copley')
 1. All content is licensed under a CC­BY­NC­SA 4.0 license.
 1. All software code is licensed under GNU GPLv3. For commercial use or
     alternative licensing, please contact legal@ga.co.
+
+
+```js
+const subwayLines = {
+    red : ['South Station',
+            'Park Street',
+            'Kendall',
+            'Central',
+            'Harvard',
+            'Porter',
+            'Davis',
+            'Alewife'],
+    green : ['Government Center',
+            'Park Street',
+            'Boylston',
+            'Arlington',
+            'Copley',
+            'Hynes',
+            'Kenmore'],
+    orange : ['North Station',
+            'Haymarket',
+            'Park Street',
+            'State',
+            'Downtown Crossing',
+            'Chinatown',
+            'Back Bay',
+            'Forest Hills']
+
+};
+var stops = 0;
+var indexOfStartStation;
+var indexOfEndStation;
+
+var indexOfParkStreet_start;
+var indexOfParkStreet_end;
+
+function stopsBetweenStations (startLine,startStation,endLine,endStation){
+
+        indexOfStartStation = subwayLines[startLine].indexOf(startStation)
+        indexOfEndStation = subwayLines[endLine].indexOf(endStation)
+
+
+
+        if(startLine == endLine){
+                stops = Math.abs(indexOfEndStation - indexOfStartStation);
+                for(var i = indexOfStartStation ;i < stops;i++){
+                      console.log('Rider stops on: '+subwayLines[startLine].[i])
+                }
+                console.log(stops+' stops');
+            
+        }else{
+                indexOfParkStreet_start = subwayLines[startLine].indexOf('park street')
+                indexOfParkStreet_end = subwayLines[endLine].indexOf('park street')
+
+                var parkStreetStartLine = Math.abs(indexOfStartStation - indexOfParkStreet_start) 
+                var parkStreetEndLine = Math.abs(indexOfEndStation indexOfParkStreet_end)
+
+                stops = parkStreetStartLine + parkStreetEndLine;
+        }
+
+}
+stopsBetweenStations('Red', 'Alewife', 'Red', 'South Station')
+
+```
