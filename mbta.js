@@ -106,6 +106,8 @@ function stopsBetweenStations(stratLine, startStation, endLine, endStation) {
         }
 
 
+        //calculate the stop 
+        console.log(`//${total} stops`)
         // print as per request.
         console.log(`//Rider boards the train ${stratLine} line and ${startStation} .\n//Rider arrives at ${stratLine} Line and Park Street. \n //Rider transfers from ${stratLine} Line to ${endLine} at Park Street. \n //Rider arrives at ${endLine} Line and ${endStation}. \n //Rider exits the train at ${endLine} Line and ${endStation}. `)
 
@@ -114,6 +116,7 @@ function stopsBetweenStations(stratLine, startStation, endLine, endStation) {
     }
     else if (idxStartLine == -1 || idxEndLine == -1) {
         console.log("Please Enter Red, Green, or Orange only to start your trip")
+        return;
     }
 
 
@@ -126,7 +129,7 @@ function stopsBetweenStations(stratLine, startStation, endLine, endStation) {
 
 
 
-stopsBetweenStations('Red', 'South Station', 'Green', 'Copley');
+stopsBetweenStations('Red', 'Porter', 'Green', 'Copley');
 
 
 
