@@ -1,0 +1,36 @@
+let stops = 0;
+ var subwayLines = {
+     // red line
+     red: ['South Station', 'Park Street', 'Kendall', 'Central', 'Harvard', 'Porter', 'Davis', 'Alewife'],
+     // green line
+     green: ['Government Center', 'Park Street', 'Boylston', 'Arlington', 'Copley', 'Hynes', 'Kenmore'],
+     // orange line 
+     orange: ['North Station', 'Haymarket', 'Park Street', 'State', 'Downtown Crossing', 'Chinatown', 'Back Bay', 'Forest Hills'],
+
+    stopsBetweenStations: function(startLine, startStation, endLine, endStation){
+     if(startLine === endLine){
+       if(startStation === endStation){
+         stops = 0;
+         console.log(`Number of Stops are: ${stops} Stops`);
+       }else{
+         var stopsStart = (subwayLines[startLine.toLowerCase()]).indexOf(startStation);
+         var stopsEnd = (subwayLines[startLine.toLowerCase()]).indexOf(endStation);
+         stops = Math.abs(stopsStart - stopsEnd);
+
+          console.log(`Number of Stops are: ${stops} Stops`);
+         console.log(`Rider boards the train a ${startLine} Line and ${startStation} Station, and Rider arrives at ${startLine} Line and ${endStation} Station`);
+       }
+     }else if(startLine != endLine){
+       var stopsStart = (subwayLines[startLine.toLowerCase()]).indexOf(startStation);
+       var stopsEnd = (subwayLines[endLine.toLowerCase()]).indexOf(endStation);
+       stops = Math.abs(stopsStart - stopsEnd);
+
+        console.log(`Number of Stops are: ${stops} Stops`);
+       console.log(`Rider transfers from ${startLine} Line to ${endLine} Line at Park Street.`);
+     }
+   },
+ };
+ subwayLines.stopsBetweenStations('Red', 'Alewife', 'Red', 'Alewife'); // 0 stops
+ subwayLines.stopsBetweenStations('Red', 'Alewife', 'Red', 'South Station'); // 7 stops
+ subwayLines.stopsBetweenStations('Red', 'South Station', 'Green', 'Kenmore'); // 6 stops
+ subwayLines.stopsBetweenStations('Red', 'South Station', 'Green', 'Copley'); // 4 stops
