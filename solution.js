@@ -47,20 +47,20 @@ var int1;
   
   for (var i = 0; i<mbta.length; i++){
      
-    if (start_Line == mbta[i].line){
+    if (StartLine == mbta[i].line){
       start_Line = mbta[i].line
-     start_Sta = mbta[i].stations.indexOf(start_Sta);
-      int1 = mbta[i].stations.indexOf("Park Street");
+     start_Sta = mbta[i].Stations.indexOf(StartStation);
+      int1 = mbta[i].Stations.indexOf("Park Street");
     }
     
-    if (end_Line == mbta[i].line){
+    if (EndLine == mbta[i].line){
       end_Line = mbta[i].line
-     end_Sta = mbta[i].stations.indexOf(end_Sta);
-      int2 = mbta[i].stations.indexOf("Park Street");
+     end_Sta = mbta[i].Stations.indexOf(EndStation);
+      int2 = mbta[i].Stations.indexOf("Park Street");
     }
   }
-  if (start_Line == end_Line){
-    stop = Math.abs(int1 - int2);
+  if ( StartLine == EndLine){
+    stop = Math.abs(start_Sta - end_Sta);
     return stop + " stop";
   }
 
