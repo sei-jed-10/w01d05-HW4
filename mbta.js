@@ -1,73 +1,53 @@
-function stopsBetweenStations (startLine, startStation, endLine, endStation){
+const red = {
+  stations: ['South Station', 'Park Street', 'Kendall', 'Central', 'Harvard', 'Porter', 'Davis', 'Alewife']}
+const green = {
+  stations: ['Government Center', 'Park Street', 'Boylston', 'Arlington', 'Copley', 'Hynes', 'Kenmore']}
+const orange = {
+stations: ['North Station', 'Haymarket', 'Park Street', 'State', 'Downtown Crossing', 'Chinatown', 'Back Bay', 'Forest Hills']};
 
-    const subway = [
-      { line: 'Red',
-      stations: ['South Station',
-                 'Park Street',
-                 'Kendall',
-                 'Central',
-                 'Harvard',
-                 'Porter',
-                 'Davis',
-                 'Alewife'] },
-      { line: 'Green',
-      stations: ['Government Center',
-                 'Park Street',
-                 'Boylston',
-                 'Arlington',
-                 'Copley',
-                 'Hynes',
-                 'Kenmore'] },
-      { line: 'Orange',
-      stations: ['North Station',
-                 'Haymarket',
-                 'Park Street',
-                 'State',
-                 'Downtown Crossing',
-                 'Chinatown',
-                 'Back Bay',
-                 'Forest Hills'] }
-    ];
-      
-      var indIntersect = 0;
-      var local = {};
-      var journey = {};
-      
-      for (let i = 0; i < subway.length; i ++) {
-    // to check the journey line.
-        if (startLine == endLine) {
-        return indexOf(subway[i].stations + subway[i].stations)
-      }
-        for (let l = 0; l < subway[i].line.length; l ++) {
-    // to check the start and end of journey.
-          for (let s = 0; s < subway[i].stations.length; s ++) {
-    // to count the stops.        
-            if (startStation == subway[i].stations[s] && journey[startStation] == undefined)
-            {journey[startStation] = 1};
-            if (endStation == subway[i].stations[s] && journey[endStation] == undefined)
-            {journey[endStation] = 1};
-              for (let j = 0; j < journey.length; j ++) {
-    // to count local journey (at same line).
-              if (startLine == endLine) {local[journey]}
-            };
-            return local
-          };
-        };
-        if (journey[startStation] == journey[endStation])
-          {indIntersect = journey.startStation + journey.endStation};
-      };
-     if (startLine != 'Red' && startLine != 'Green' && startLine != 'Orange'
-         || endLine != 'Red' && endLine != 'Green' && endLine != 'Orange') {
-        console.log ('wrong line entry, please try again: Red, Green, or Orange.') };
-    //   if not same 
-    };
-    
-    
-    console.log(stopsBetweenStations('Red', 'South Station', 'Red', 'Alewife'))
-    // 0 stops
-    console.log(stopsBetweenStations('Red', 'Alewife', 'Red', 'South Station'))
-    // 7 stops
-    console.log(stopsBetweenStations('Red', 'South Station', 'Green', 'Kenmore'))
-    // 6 stops 
-    console.log(stopsBetweenStations('not', 'not', 'not', 'not'))
-    // wrong line entry, please try again: Red, Green, or Orange.
+function stopsBetweenStations (startLine, startStation, endLine, endStation){		
+
+if (startLine != (red || green || orange)){
+      return 'wrong entry.';}
+
+let starting = '';
+let ending = '';
+let stops = '';
+
+if (startLine == endLine && startStation == endStation) {
+  stops = 0;
+  return stops;
+} 
+
+if (startLine == endLine && startStation != endStation) {
+  stops = (endLine.stations.indexOf(endStation) - startLine.stations.indexOf(startStation)) - 1;
+  if (stops < 0) { return 'you have ' + ((stops * -1) - 2) + ' stops to your destination.';}
+  else {return 'you have ' + stops + ' stops to your destination.';}
+}
+
+  for (let i = 0; i < startLine.stations.length; i ++) {
+      let starting = '';
+if (startLine.stations[i].indexOf('Park Street') == true) {
+  starting = i;
+  }
+for (let n = 0; n < endLine.stations.length; n ++) { 
+    let ending = '';
+    if (endLine.stations[n].indexOf('Park Street') == true) {
+      ending = n;
+    }
+    stops = (starting + ending);
+    return 'you have ' + stops + ' stops to your destination.';
+}
+  }
+}
+
+  // console.log(stopsBetweenStations(red, 'Alewife', red, 'Alewife')) 
+  // => 0 stops // its working ..
+  // console.log(stopsBetweenStations(red, 'Alewife', red, 'South Station'))
+  // => 6 stops // its working ..
+
+  // console.log(stopsBetweenStations(red, 'South Station', green, 'Kenmore'))
+  // => 5 stops // -------------------------------------------------------------- not working ..
+  
+  // console.log(stopsBetweenStations('not', 'not', 'not', 'not'))
+  // => wrong entry. // its working ..
