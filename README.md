@@ -91,6 +91,80 @@ stopsBetweenStations('Red', 'South Station', 'Green', 'Copley')
 // Rider arrives at Green Line and Arlington.
 // Rider arrives at Green Line and Copley.
 // Rider exits the train at Green Line and Copley.
+
+
+
+let subway_lines = {
+  'Red' : ['South Station', 'Park Street', 'Kendall', 'Central', 'Harvard', 'Porter', 'Davis','Alewife'],
+  
+  'Green' : ['Government Center', 'Park Street', 'Boylston', 'Arlington', 'Copley', 'Hynes', 'Kenmore'],
+  
+  'Orange': ['North Station', 'Haymarket', 'Park Street', 'State', 'Downtown Crossing', 'Chinatown', 'Back Bay', 'Forest Hills']
+};
+ 
+
+function stopsBetweenStations(StartLine, StartStation, EndLine, EndStation) {
+  // validate
+  if (isValidLine(StartLine) && isValidLine(EndLine) 
+      && isValidStation(StartLine, StartStation) 
+      && isValidStation(EndLine, EndStation)) {
+        
+    let stops = 0, direction = 0;
+    if (StartStation == EndStation)
+      return stops;
+    while (StartStation != EndStation) {
+      if (StartLine == EndLine) {
+        if (subway_lines[StartLine].indexOf(StartStation) < subway_lines[EndLine].indexOf(EndStation))
+          direction = 1;
+        else
+          direction = -1;
+        
+        StartStation = newStop(StartLine, subway_lines[StartLine].indexOf(StartStation) + direction); 
+      }
+      else if (StartStation == 'Park Street') {
+        StartLine = EndLine;
+        if (subway_lines[StartLine].indexOf(StartStation) < subway_lines[EndLine].indexOf(EndStation))
+          direction = 1;
+        else
+          direction = -1;
+        
+        StartStation = newStop(StartLine, subway_lines[StartLine].indexOf(StartStation) + direction);
+      }
+      else {
+        if (subway_lines[StartLine].indexOf(StartStation) < subway_lines[EndLine].indexOf('Park Street'))
+          direction = 1;
+        else
+          direction = -1;
+        
+        StartStation = newStop(StartLine, subway_lines[StartLine].indexOf(StartStation) + direction);
+      }
+      stops++;
+    }
+    return stops;
+  }
+}
+
+function isValidLine(line) {
+    return line in subway_lines;
+}
+
+function isValidStation(line, station) {
+  return true;
+  return result;
+}
+
+function newStop(line, index) {
+  let list = subway_lines[line];
+  return list[index]
+}
+
+console.log (stopsBetweenStations('Red', 'South Station', 'Green', 'Copley') + ' Stops')
+ 
+console.log (stopsBetweenStations('Red', 'Alewife', 'Red', 'Alewife')+ ' Stops') // 0 stops
+console.log (stopsBetweenStations('Red', 'Alewife', 'Red', 'South Station')+ ' Stops') // 7 stops
+console.log (stopsBetweenStations('Red', 'South Station', 'Green', 'Kenmore')) // 6 stops
+
+
 ```
 
 ## [License](LICENSE)
